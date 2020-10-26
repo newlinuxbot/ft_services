@@ -16,7 +16,14 @@ RUN curl https://wordpress.org/latest.tar.gz -o /usr/share/nginx/html/latest.tar
 RUN tar xf /usr/share/nginx/html/latest.tar.gz -C /usr/share/nginx/html/
 COPY d.conf /etc/nginx/conf.d/default.conf
 RUN echo "/usr/sbin/php-fpm7" > /tmp/s.sh
+RUN echo "telegraf&" >> /tmp/s.sh
 RUN echo 'nginx -g "daemon off;"' >> /tmp/s.sh
+RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+RUN mkdir -p /etc/telegraf
+RUN telegraf config > /etc/telegraf/telegraf.conf
+RUN awk 'NR==112 {$0="urls = [\"http://influxdb.mine:8086\"]"} { print }' /etc/telegraf/telegraf.conf > /etc/telegraf/telegraf1.conf
+RUN mv /etc/telegraf/telegraf1.conf /etc/telegraf/telegraf.conf
+RUN awk 'NR==116 {$0="database = \"wordpress\""} { print }' /etc/telegraf/telegraf.conf > /etc/telegraf/telegraf1.conf 
+RUN mv /etc/telegraf/telegraf1.conf /etc/telegraf/telegraf.conf
 COPY wp-config.php /usr/share/nginx/html/wordpress/wp-config.php
-EXPOSE 5050
 CMD ["sh","/tmp/s.sh"]
