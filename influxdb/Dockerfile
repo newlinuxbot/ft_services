@@ -9,4 +9,5 @@ RUN awk 'NR==116 {$0="database = \"influxdb\""} { print }' /etc/telegraf/telegra
 RUN mv /etc/telegraf/telegraf1.conf /etc/telegraf/telegraf.conf
 RUN echo "telegraf&" > /tmp/s.sh
 RUN echo "influxd" >> /tmp/s.sh
-CMD ["sh","/tmp/s.sh"]
+RUN echo "while true; do echo hello; sleep 10;done" >> /tmp/s.sh
+ENTRYPOINT sh /tmp/s.sh
