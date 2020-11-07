@@ -23,7 +23,7 @@ spec:
     protocol: TCP
     name: ssh
   selector:
-    app: ftp
+    app: nginx
 
 ---
 
