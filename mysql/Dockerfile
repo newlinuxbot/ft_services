@@ -1,4 +1,5 @@
 FROM alpine:latest
+ARG MINIKUBEIP
 RUN apk update
 RUN apk add openrc
 RUN apk add mysql mysql-client
@@ -15,7 +16,7 @@ RUN echo "mysql -e \"CREATE DATABASE wordpress\"" >> /tmp/s.sh
 RUN echo "mysql wordpress < /tmp/wordpress.sql" >> /tmp/s.sh
 RUN echo "mysql -e \"use wordpress;UPDATE wp_options SET option_value = 'http://$MINIKUBEIP:5050' WHERE wp_options.option_id = 1;\"" >> /tmp/s.sh
 RUN echo "mysql -e \"use wordpress;UPDATE wp_options SET option_value = 'http://$MINIKUBEIP:5050' WHERE wp_options.option_id = 2;\"" >> /tmp/s.sh
-RUN echo "mysql -e \"use wordpress;UPDATE wp_users SET user_pass = '\$P\$B/jLcVjwoM1mPL/h47LQPcoIhaLtFp/' WHERE wp_users.ID = 1; " >> /tmp/s.sh
+RUN echo "mysql -e 'use wordpress;UPDATE wp_users SET user_pass = \"\$P\$B/jLcVjwoM1mPL/h47LQPcoIhaLtFp/\" WHERE wp_users.ID = 1;'" >> /tmp/s.sh
 RUN echo "tele*/usr/bin/telegraf&" >> /tmp/s.sh
 RUN echo "/etc/init.d/mariadb restart" >> /tmp/s.sh
 RUN echo "while true; do echo hello; sleep 10;done" >> /tmp/s.sh

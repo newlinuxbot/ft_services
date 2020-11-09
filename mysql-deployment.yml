@@ -5,11 +5,11 @@ metadata:
   labels:
     app: mysql
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 3306
     targetPort: 3306
-    nodePort: 3306
+    #nodePort: 3306
     protocol: TCP
     name: mysql
   selector:
@@ -39,10 +39,10 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
-        volumeMounts:
-        - mountPath: /var/lib/mysql
-          name: mysql-pv-claim
-      volumes:
-      - name: mysql-pv-claim
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          #volumeMounts:
+          #- mountPath: /var/lib/mysql
+          #name: mysql-pv-claim
+          #volumes:
+          #- name: mysql-pv-claim
+          #persistentVolumeClaim:
+          #claimName: mysql-pv-claim

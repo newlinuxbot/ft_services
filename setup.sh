@@ -1,18 +1,28 @@
-#minikube delete
-#minikube --vm-driver=docker start --extra-config=apiserver.service-node-port-range=1-35000
-#eval $(minikube docker-env)
+#!/bin/bash
+
+echo "[+] - Make sure you have Minikube & Docker installed, That's not my job :)\n"
+echo "[+] - Restarting The Cluster:\n"
+minikube delete
+minikube --vm-driver=docker start --extra-config=apiserver.service-node-port-range=1-35000
+eval $(minikube docker-env)
+echo "[+] - Deleting Services and Deployments, making things clean:\n"
 kubectl delete --all service
 kubectl delete --all deployments
+echo "[+] - Setup LoadBalancer:\n"
 sh setup-metallb.sh
+echo "[+] - Building Docker images:\n"
 docker build -t wp-image --build-arg MINIKUBEIP=$(minikube ip) wordpress/
-docker build -t mysql-image mysql/
+docker build -t mysql-image --build-arg MINIKUBEIP=$(minikube ip) mysql/
 docker build -t pma-image phpmyadmin/
 docker build -t nginx-image --build-arg MINIKUBEIP=$(minikube ip) nginx/
 docker build -t ftp-image ftp/
 docker build -t influxdb-image influxdb/
 docker build -t grafana-image grafana/
+echo "[+] - Creating Persistent Volumes for mysql and influxdb:\n"
 kubectl create -f pv-pvc/
 kubectl create -f .
+echo "[+] - Done:\n"
+
 #docker run -p 8086:8086 -d -it --net mine --name influxdb myinfluxdb
 #docker run -p 80:5050 -it -d --net mine --name wordpress mywordpress
 #docker run -p 3306:3306 -it -d --net mine --name mysql mymysql

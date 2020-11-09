@@ -1,4 +1,5 @@
 FROM alpine:latest
+ARG MINIKUBEIP
 RUN apk update
 RUN apk add openssl nginx openrc --no-cache
 RUN mkdir -p /etc/nginx/ssl /run/nginx
