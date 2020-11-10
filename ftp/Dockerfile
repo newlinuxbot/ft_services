@@ -1,12 +1,16 @@
 FROM alpine:latest
+ARG EXTERNALIP
 RUN apk add openrc
 RUN openrc
 RUN touch /run/openrc/softlevel
 RUN apk add vsftpd
 RUN apk add busybox-extras
 RUN rc-update add vsftpd default
-RUN echo "seccomp_sandbox=NO" >> /etc/vsftpd/vsftpd.conf
-RUN echo "isolate_network=NO" >> /etc/vsftpd/vsftpd.conf
+RUN adduser -D admin
+RUN echo "admin:admin" | chpasswd
+RUN echo "admin" > /etc/vsftpd.chroot_list
+COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+RUN sed -i "s/EXTERNALIP/$EXTERNALIP/g" /etc/vsftpd/vsftpd.conf
 RUN echo "rc-service vsftpd start" > /tmp/s.sh
 RUN echo "telegraf && sh" >> /tmp/s.sh
 RUN echo "while true; do echo hello; sleep 10;done" >> /tmp/s.sh

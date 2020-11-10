@@ -11,6 +11,18 @@ spec:
     targetPort: 21
     protocol: TCP
     name: ftp
+  - port: 20
+    targetPort: 20
+    protocol: TCP
+    name: ftp-data
+  - port: 20020
+    targetPort: 20020
+    protocol: TCP
+    name: ftp-pass-min
+  - port: 20021
+    targetPort: 20021
+    protocol: TCP
+    name: ftp-pass-max
   externalIPs:
   - 192.168.99.242
   selector:
@@ -40,3 +52,9 @@ spec:
         ports:
         - containerPort: 21
           name: ftp-port
+        - containerPort: 20
+          name: ftp-data
+        - containerPort: 20020
+          name: ftp-pass-min
+        - containerPort: 20021
+          name: ftp-pass-max

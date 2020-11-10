@@ -1,24 +1,24 @@
 #!/bin/bash
 
-echo "[+] - Make sure you have Minikube & Docker installed, That's not my job :)\n"
-echo "[+] - Restarting The Cluster:\n"
-#minikube delete
-#minikube --vm-driver=docker start --extra-config=apiserver.service-node-port-range=1-35000
+echo "\033[101m[+] - Make sure you have Minikube & Docker installed, That's not my job :)"
+echo "\033[101m[+] - Restarting The Cluster:"
+minikube delete
+minikube start
 eval $(minikube docker-env)
-echo "[+] - Setup LoadBalancer:\n"
+echo "\033[101m[+] - Setup LoadBalancer:"
 sh setup-metallb.sh
-echo "[+] - Building Docker images:\n"
+echo "\033[101m[+] - Building Docker images:"
 docker build -t wp-image wordpress/
 docker build -t mysql-image --build-arg EXTERNALIP=192.168.99.242 mysql/
+docker build -t ftp-image --build-arg EXTERNALIP=192.168.99.242 ftp/
 docker build -t pma-image phpmyadmin/
 docker build -t nginx-image --build-arg EXTERNALIP=192.168.99.242 nginx/
-docker build -t ftp-image ftp/
 docker build -t influxdb-image influxdb/
 docker build -t grafana-image grafana/
-echo "[+] - Creating Persistent Volumes for mysql and influxdb:\n"
+echo "\033[101m[+] - Creating Persistent Volumes for mysql and influxdb:"
 kubectl create -f pv-pvc/
 kubectl create -f .
-echo "[+] - Done:\n"
+echo "\033[101m[+] - Done:"
 
 #docker run -p 8086:8086 -d -it --net mine --name influxdb myinfluxdb
 #docker run -p 80:5050 -it -d --net mine --name wordpress mywordpress
