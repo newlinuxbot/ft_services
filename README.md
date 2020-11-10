@@ -10,3 +10,5 @@ Execute setup.sh script:
 ```bash
 sh setup.sh
 ```
+
+make sure you have docker and minikube installed.
