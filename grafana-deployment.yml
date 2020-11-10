@@ -11,6 +11,8 @@ spec:
     targetPort: 3000
     protocol: TCP
     name: grafana
+  externalIPs:
+  - 192.168.99.242
   selector:
     app: grafana
 

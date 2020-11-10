@@ -11,6 +11,8 @@ spec:
     targetPort: 5000
     protocol: TCP
     name: pma
+  externalIPs:
+  - 192.168.99.242
   selector:
     app: pma
 

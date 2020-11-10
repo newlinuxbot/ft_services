@@ -11,6 +11,8 @@ spec:
     targetPort: 8086
     protocol: TCP
     name: influxdb
+  externalIPs:
+  - 192.168.99.242
   selector:
     app: influxdb
 

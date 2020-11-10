@@ -5,13 +5,14 @@ metadata:
   labels:
     app: ftp
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 21
     targetPort: 21
-    nodePort: 21
     protocol: TCP
     name: ftp
+  externalIPs:
+  - 192.168.99.242
   selector:
     app: ftp
 

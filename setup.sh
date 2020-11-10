@@ -2,19 +2,16 @@
 
 echo "[+] - Make sure you have Minikube & Docker installed, That's not my job :)\n"
 echo "[+] - Restarting The Cluster:\n"
-minikube delete
-minikube --vm-driver=docker start --extra-config=apiserver.service-node-port-range=1-35000
+#minikube delete
+#minikube --vm-driver=docker start --extra-config=apiserver.service-node-port-range=1-35000
 eval $(minikube docker-env)
-echo "[+] - Deleting Services and Deployments, making things clean:\n"
-kubectl delete --all service
-kubectl delete --all deployments
 echo "[+] - Setup LoadBalancer:\n"
 sh setup-metallb.sh
 echo "[+] - Building Docker images:\n"
-docker build -t wp-image --build-arg MINIKUBEIP=$(minikube ip) wordpress/
-docker build -t mysql-image --build-arg MINIKUBEIP=$(minikube ip) mysql/
+docker build -t wp-image wordpress/
+docker build -t mysql-image --build-arg EXTERNALIP=192.168.99.242 mysql/
 docker build -t pma-image phpmyadmin/
-docker build -t nginx-image --build-arg MINIKUBEIP=$(minikube ip) nginx/
+docker build -t nginx-image --build-arg EXTERNALIP=192.168.99.242 nginx/
 docker build -t ftp-image ftp/
 docker build -t influxdb-image influxdb/
 docker build -t grafana-image grafana/

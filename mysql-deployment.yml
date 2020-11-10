@@ -9,9 +9,10 @@ spec:
   ports:
   - port: 3306
     targetPort: 3306
-    #nodePort: 3306
     protocol: TCP
     name: mysql
+  externalIPs:
+  - 192.168.99.242
   selector:
     app: mysql
 

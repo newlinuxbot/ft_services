@@ -9,9 +9,10 @@ spec:
   ports:
   - port: 5050
     targetPort: 5050
-    nodePort: 5050
     protocol: TCP
     name: wp
+  externalIPs:
+  - 192.168.99.242
   selector:
     app: wp
 

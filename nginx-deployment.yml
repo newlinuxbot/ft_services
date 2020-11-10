@@ -19,6 +19,8 @@ spec:
     targetPort: 22
     protocol: TCP
     name: ssh
+  externalIPs:
+  - 192.168.99.242
   selector:
     app: nginx
 
