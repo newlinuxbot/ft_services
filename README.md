@@ -45,6 +45,14 @@ This container is listening on port 3000, Grafana is linked with the InfluxDB da
 
 The File Transfer Protocol is a standard network protocol used for the transfer of computer files between a client and server on a computer network. FTP is built on a client-server model architecture using separate control and data connections between the client and the server.
 
+# LoadBalancer
+
+In computing, load balancing refers to the process of distributing a set of tasks over a set of resources, with the aim of making their overall processing more efficient.
+
+## MetalLB
+
+MetalLB is a load-balancer implementation for bare metal Kubernetes clusters, using standard routing protocols.
+
 ## Installation
 
 Execute setup.sh script:
