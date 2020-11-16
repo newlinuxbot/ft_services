@@ -62,3 +62,7 @@ sh setup.sh
 ```
 
 make sure you have docker and minikube installed.
+
+## Disclaimer
+
+Of course, this is just a student project. You shouldn't use it in anything resembling a production environment. I've been following pretty strict project guidlines, so there are many things that aren't implemented using best practices.
