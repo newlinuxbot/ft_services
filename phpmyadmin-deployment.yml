@@ -40,3 +40,4 @@ spec:
         ports:
         - containerPort: 5000
           name: pma-port
+      restartPolicy: Always

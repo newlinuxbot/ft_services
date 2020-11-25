@@ -47,3 +47,4 @@ spec:
       - name: influxdb-pv-claim
         persistentVolumeClaim:
           claimName: influxdb-pv-claim
+      restartPolicy: Always

@@ -58,3 +58,4 @@ spec:
           name: ftp-pass-min
         - containerPort: 20021
           name: ftp-pass-max
+      restartPolicy: Always

@@ -40,3 +40,4 @@ spec:
         ports:
         - containerPort: 3000
           name: grafana-port
+      restartPolicy: Always
