@@ -8,13 +8,13 @@ eval $(minikube docker-env)
 echo "[+] - Setup LoadBalancer:"
 sh setup-metallb.sh
 echo "[+] - Building Docker images:"
-docker build -t wp-image wordpress/
-docker build -t mysql-image --build-arg EXTERNALIP=192.168.99.242 mysql/
-docker build -t ftp-image --build-arg EXTERNALIP=192.168.99.242 ftp/
-docker build -t pma-image phpmyadmin/
-docker build -t nginx-image --build-arg EXTERNALIP=192.168.99.242 nginx/
-docker build -t influxdb-image influxdb/
-docker build -t grafana-image grafana/
+docker build -t wordpress wordpress/
+docker build -t mysql --build-arg EXTERNALIP=192.168.99.242 mysql/
+docker build -t ftps --build-arg EXTERNALIP=192.168.99.242 ftps/
+docker build -t phpmyadmin phpmyadmin/
+docker build -t nginx --build-arg EXTERNALIP=192.168.99.242 nginx/
+docker build -t influxDB influxdb/
+docker build -t grafana grafana/
 echo "[+] - Creating Persistent Volumes for mysql and influxdb:"
 kubectl create -f pv-pvc/
 kubectl create -f .

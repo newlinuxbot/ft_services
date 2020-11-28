@@ -1,41 +1,41 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pma-service
+  name: phpmyadmin-service
   labels:
-    app: pma
+    app: phpmyadmin
 spec:
   type: LoadBalancer
   ports:
   - port: 5000
     targetPort: 5000
     protocol: TCP
-    name: pma
+    name: phpmyadmin
   externalIPs:
   - 192.168.99.242
   selector:
-    app: pma
+    app: phpmyadmin
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pma
+  name: phpmyadmin
   labels:
-    app: pma
+    app: phpmyadmin
 spec:
   selector:
     matchLabels:
-      app: pma
+      app: phpmyadmin
   template:
     metadata:
       labels:
-        app: pma
+        app: phpmyadmin
     spec:
       containers:
-      - name: pma
-        image: pma-image
+      - name: phpmyadmin
+        image: phpmyadmin
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
