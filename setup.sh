@@ -9,7 +9,7 @@ echo "[+] - Setup LoadBalancer:"
 sh srcs/setup-metallb.sh
 echo "[+] - Building Docker images:"
 docker build -t wordpress srcs/wordpress/
-docker build -t mysql --build-arg EXTERNALIP=192.168.99.242 srcs/mysql/
+docker build -t mysql srcs/mysql/
 docker build -t ftps --build-arg EXTERNALIP=192.168.99.242 srcs/ftps/
 docker build -t phpmyadmin srcs/phpmyadmin/
 docker build -t nginx --build-arg EXTERNALIP=192.168.99.242 srcs/nginx/

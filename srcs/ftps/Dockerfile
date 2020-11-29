@@ -12,9 +12,7 @@ RUN echo "admin:admin" | chpasswd
 RUN echo "admin" > /etc/vsftpd.chroot_list
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 RUN sed -i "s/EXTERNALIP/$EXTERNALIP/g" /etc/vsftpd/vsftpd.conf
-RUN echo "rc-service vsftpd start" > /tmp/s.sh
-RUN echo "telegraf" >> /tmp/s.sh
-RUN echo "while true; do echo hello; sleep 10;done" >> /tmp/s.sh
+COPY s.sh /tmp/s.sh
 RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 RUN mkdir -p /etc/telegraf
 RUN telegraf config > /etc/telegraf/telegraf.conf

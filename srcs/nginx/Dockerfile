@@ -14,6 +14,7 @@ RUN sed -i "s/EXTERNALIP/$EXTERNALIP/g" /etc/nginx/conf.d/default.conf
 RUN apk add openssh
 RUN apk add vim
 RUN rc-update add sshd
+RUN echo "HTTPS is Ready !" > /usr/share/nginx/html/index.html
 COPY s.sh /tmp/s.sh
 RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 RUN mkdir -p /etc/telegraf
